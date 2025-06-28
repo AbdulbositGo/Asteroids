@@ -9,4 +9,5 @@ ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
 PLAYER_RADIUS = 20
 PLAYER_SPEED = 200
 PLAYER_TURN_SPEED = 200
-PLAYER_IMAGE = 'assets/images/player.png'
+SPACESHIP_IMAGE = 'assets/images/player.png'
+FLAME_IMAGE = 'assets/images/flame.png'

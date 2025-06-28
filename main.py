@@ -11,19 +11,31 @@ def main() -> None:
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+    player1 = Player(SCREEN_WIDTH / 2.15, SCREEN_HEIGHT / 2)
+    player2 = Player(SCREEN_WIDTH / 1.85, SCREEN_HEIGHT / 2)
 
     running = True
     while running:
+        # Handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        dt = clock.tick(60) / 1000
-        player.update(dt)
+        updatable.update(dt)
+
         screen.blit(background, (0, 0))
-        player.draw(screen)
+
+        for sprite in drawable:
+            sprite.draw(screen)
+
         pygame.display.flip()
+        dt = clock.tick(60) / 1000
+
     pygame.quit()
 
 
