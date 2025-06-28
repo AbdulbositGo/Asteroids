@@ -11,6 +11,7 @@ def main() -> None:
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     running = True
     while running:
@@ -18,9 +19,9 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 running = False
 
+        player.update(dt)
         screen.blit(background, (0, 0))
 
-        player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         player.draw(screen)
 
         pygame.display.flip()
