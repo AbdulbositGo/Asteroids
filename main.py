@@ -19,13 +19,11 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 running = False
 
+        dt = clock.tick(60) / 1000
         player.update(dt)
         screen.blit(background, (0, 0))
-
         player.draw(screen)
-
         pygame.display.flip()
-        dt = clock.tick(60) / 1000
     pygame.quit()
 
 

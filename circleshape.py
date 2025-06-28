@@ -13,11 +13,7 @@ class CircleShape(pygame.sprite.Sprite):
         self.radius = radius
 
     def draw(self, screen):
-        rotated_image = pygame.transform.rotozoom(
-            self.original_image, -self.rotation, 1
-        )
-        rect = rotated_image.get_rect(center=self.position)
-        screen.blit(rotated_image, rect)
+        pass
 
     def update(self, dt):
         # sub-classes must override
