@@ -6,9 +6,9 @@ from constants import (
     PLAYER_RADIUS,
     PLAYER_SPEED,
     PLAYER_TURN_SPEED,
-    SHOT_RADIUS,
     PLAYER_SHOOT_SPEED,
     SPACESHIP_IMAGE,
+    SHOT_SOUND,
 )
 from shot import Shot
 
@@ -24,6 +24,7 @@ class Player(CircleShape):
         self.flame_image = pygame.image.load(FLAME_IMAGE).convert_alpha()
         self.flame_image = pygame.transform.smoothscale(self.flame_image, (32, 32))
         self.flame_image = pygame.transform.rotate(self.flame_image, 180)
+        self.sound = pygame.mixer.Sound(SHOT_SOUND)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
@@ -41,7 +42,8 @@ class Player(CircleShape):
             self.move(-dt)
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.move(dt)
-        if keys[pygame.K_SPACE] or keys[pygame.MOUSEBUTTONUP]:
+        if keys[pygame.K_SPACE] or keys[pygame.MOUSEBUTTONDOWN]:
+            self.sound.play()
             self.shoot()
 
     def draw(self, screen):

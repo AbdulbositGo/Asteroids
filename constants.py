@@ -5,6 +5,7 @@ SPACESHIP_IMAGE = 'assets/images/player.png'
 FLAME_IMAGE = 'assets/images/flame.png'
 ASTEROID_IMAGE = 'assets/images/asteroid.png'
 SHOT_IMAGE = 'assets/images/shot.png'
+SHOT_SOUND = 'assets/sounds/shot.wav'
 
 ASTEROID_MIN_RADIUS = 20
 ASTEROID_KINDS = 3

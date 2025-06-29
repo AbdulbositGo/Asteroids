@@ -1,6 +1,6 @@
 from circleshape import CircleShape
 import pygame
-from constants import SHOT_IMAGE, SHOT_RADIUS
+from constants import SHOT_IMAGE, SHOT_RADIUS, SHOT_SOUND
 
 
 class Shot(CircleShape):
@@ -20,7 +20,6 @@ class Shot(CircleShape):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         offset = -forward * (self.radius + 75)
         pos = self.position + offset
-
         rotated = pygame.transform.rotozoom(self.image, -self.rotation, 1)
         rect = rotated.get_rect(center=pos)
         screen.blit(rotated, rect)
