@@ -1,54 +1,56 @@
 import pygame
 
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH
-from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH
+from player import Player
+from shot import Shot
 
 
 def main() -> None:
     pygame.init()
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+
     background = pygame.image.load('assets/images/background.jpg').convert()
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
-    dt = 0
 
     asteroids = pygame.sprite.Group()
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
+    Asteroid.containers = (asteroids, updatable, drawable, shots)
     Player.containers = (updatable, drawable)
-    Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
-
-    player = Player(SCREEN_WIDTH / 2.15, SCREEN_HEIGHT / 2)
+    Shot.containers = (shots, updatable, drawable)
     asteroid_field = AsteroidField()
 
-    running = True
-    while running:
-        # Handle events
+    player = Player(SCREEN_WIDTH / 2.15, SCREEN_HEIGHT / 2)
+
+    dt = 0
+
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return
 
         updatable.update(dt)
 
-        screen.blit(background, (0, 0))
-
-        for sprite in drawable:
-            sprite.draw(screen)
-
-        # Update game state
-
-        # Check for collision between player and asteroids
         for asteroid in asteroids:
             if player.collides_with(asteroid):
                 print('Game over!')
                 pygame.quit()
                 exit()
 
+        screen.blit(background, (0, 0))
+
+        for obj in drawable:
+            obj.draw(screen)
+
         pygame.display.flip()
+
         dt = clock.tick(60) / 1000
 
     pygame.quit()
