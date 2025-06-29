@@ -1,6 +1,6 @@
 from circleshape import CircleShape
 import pygame
-from constants import SHOT_IMAGE, SHOT_RADIUS, SHOT_SOUND
+from constants import SHOT_IMAGE, SHOT_RADIUS
 
 
 class Shot(CircleShape):

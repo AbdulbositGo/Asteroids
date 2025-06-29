@@ -1,6 +1,6 @@
 import pygame
 from circleshape import CircleShape
-from constants import ASTEROID_IMAGE
+from constants import ASTEROID_IMAGE, CRASH_SOUND
 
 
 class Asteroid(CircleShape):
@@ -13,6 +13,7 @@ class Asteroid(CircleShape):
         )
         self.image = self.image_original
         self.rect = self.image.get_rect(center=self.position)
+        self.sound = pygame.mixer.Sound(CRASH_SOUND)
 
     def update(self, dt):
         self.position += self.velocity * dt
@@ -24,3 +25,7 @@ class Asteroid(CircleShape):
         )
         rect = self.image.get_rect(center=self.position)
         screen.blit(rotated_image, rect)
+
+    def kill(self):
+        self.sound.play()
+        return super().kill()
