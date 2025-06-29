@@ -1,6 +1,8 @@
+import random
 import pygame
+
 from circleshape import CircleShape
-from constants import ASTEROID_IMAGE, CRASH_SOUND
+from constants import ASTEROID_IMAGE, ASTEROID_MIN_RADIUS, CRASH_SOUND
 
 
 class Asteroid(CircleShape):
@@ -26,6 +28,21 @@ class Asteroid(CircleShape):
         rect = self.image.get_rect(center=self.position)
         screen.blit(rotated_image, rect)
 
-    def kill(self):
+    def split(self):
         self.sound.play()
+        self.kill()
+
+        if self.radius == ASTEROID_MIN_RADIUS:
+            return
+
+        new_angel = random.uniform(20, 50)
+        vektor1 = self.velocity.rotate(new_angel)
+        vektor2 = self.velocity.rotate(-new_angel)
+        new_radius = self.radius - ASTEROID_MIN_RADIUS
+        asteroid1 = Asteroid(self.position.x, self.position.y, new_radius)
+        asteroid2 = Asteroid(self.position.x, self.position.y, new_radius)
+        asteroid1.velocity = vektor1 * 1.2
+        asteroid2.velocity = vektor2 * 1.2
+
+    def kill(self):
         return super().kill()
